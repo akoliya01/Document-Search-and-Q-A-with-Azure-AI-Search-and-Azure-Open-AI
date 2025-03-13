@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Azure AI Chat</title>
+    <script>
+        async function askQuestion() {
+            let query = document.getElementById("query").value;
+            if (!query) {
+                alert("Please enter a question");
+                return;
+            }
+            
+            let response = await fetch("/ask", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: query })
+            });
+            
+            let result = await response.json();
+            document.getElementById("response").innerText = result.response;
+        }
+    </script>
+</head>
+<body>
+    <h1>Azure AI Chat</h1>
+    <input type="text" id="query" placeholder="Ask a question...">
+    <button onclick="askQuestion()">Ask</button>
+    <p id="response"></p>
+</body>
+</html>
